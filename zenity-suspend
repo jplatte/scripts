@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+zenity --question --title="Bereitschaftsmodus" --text="Wollen sie den Computer in den Bereitschaftsmodus versetzen?"
+response=$?
+
+if [ "$response" = "0" ]; then
+    # wait for re-render after zenity closed
+    sleep .1s
+	lock
+	systemctl suspend
+fi
+exit 0

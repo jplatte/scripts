@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+zenity --question --title="Neu starten" --text="Wollen sie den Computer neu starten?"
+response=$?
+
+if [ "$response" = "0" ]; then
+	systemctl reboot
+fi
+exit 0

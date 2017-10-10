@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+zenity --question --title="Herunterfahren" --text="Wollen sie den Computer herunterfahren?"
+response=$?
+
+if [ "$response" = "0" ]; then
+	systemctl poweroff
+fi
+exit 0
