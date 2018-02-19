@@ -2,7 +2,9 @@
 
 IMAGE=$(mktemp --suffix=.png)
 
+notify-send DUNST_COMMAND_PAUSE
 scrot $IMAGE
 convert -scale 10% -scale 1000% $IMAGE $IMAGE
-i3lock -i $IMAGE
+i3lock -ni $IMAGE
+notify-send DUNST_COMMAND_RESUME
 rm $IMAGE
