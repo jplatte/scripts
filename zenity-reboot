@@ -3,6 +3,6 @@ zenity --question --title="Neu starten" --text="Wollen sie den Computer neu star
 response=$?
 
 if [ "$response" = "0" ]; then
-	systemctl reboot
+    systemctl reboot
 fi
 exit 0

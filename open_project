@@ -33,19 +33,19 @@ first_project_dir="$initial_search_dir/$(ls $initial_search_dir | sort -n | head
 projectdir=$(zenity --file-selection --directory --filename="$first_project_dir")
 
 if [[ "$projectdir" ]]; then
-	workspaces=$(i3-msg -t get_workspaces)
-	workspace_count=$(echo $workspaces | jshon -l)
-	let workspace_count-=1
+    workspaces=$(i3-msg -t get_workspaces)
+    workspace_count=$(echo $workspaces | jshon -l)
+    let workspace_count-=1
 
-	for i in $(seq 0 $workspace_count); do
-		if [[ $(jshon -e $i -e focused <<< "$workspaces") = "true" ]]; then
+    for i in $(seq 0 $workspace_count); do
+        if [[ $(jshon -e $i -e focused <<< "$workspaces") = "true" ]]; then
             workspace_num=$(jshon -e $i -e num <<< "$workspaces")
-			projectdir_basename=$(basename "$projectdir")
-			new_workspace_name="$workspace_num:$workspace_num: $projectdir_basename"
-			i3-msg "rename workspace to \"$new_workspace_name\""
-			i3-msg "append_layout \"${layout_path}/${editor}_${terminal}.json\""
-			run_editor "$projectdir"
-			run_terminal "$projectdir"
-		fi
-	done
+            projectdir_basename=$(basename "$projectdir")
+            new_workspace_name="$workspace_num:$workspace_num: $projectdir_basename"
+            i3-msg "rename workspace to \"$new_workspace_name\""
+            i3-msg "append_layout \"${layout_path}/${editor}_${terminal}.json\""
+            run_editor "$projectdir"
+            run_terminal "$projectdir"
+        fi
+    done
 fi

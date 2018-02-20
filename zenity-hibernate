@@ -3,7 +3,7 @@ zenity --question --title="Ruhezustand" --text="Wollen sie den Computer in den R
 response=$?
 
 if [ "$response" = "0" ]; then
-	i3lock -c 000000
-	systemctl hibernate
+    i3lock -c 000000
+    systemctl hibernate
 fi
 exit 0

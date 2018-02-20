@@ -3,6 +3,6 @@ zenity --question --title="Herunterfahren" --text="Wollen sie den Computer herun
 response=$?
 
 if [ "$response" = "0" ]; then
-	systemctl poweroff
+    systemctl poweroff
 fi
 exit 0
