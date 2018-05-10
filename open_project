@@ -9,20 +9,13 @@ set -e
 
 # Static settings
 # ===============
-layout_path="$HOME/.local/share/i3-layouts"
 initial_search_dir="$HOME/Projekte"
 
 # "Main"
 # ======
-#editor=$(printf 'code\natom\n' | dmenu -i -l 36)
 editor=code
 run_editor() {
     $editor "$1"
-}
-
-terminal=konsole
-run_terminal() {
-    konsole --workdir "$1"
 }
 
 cd "$initial_search_dir"
@@ -43,9 +36,7 @@ if [[ "$projectdir" ]]; then
             projectdir_basename=$(basename "$projectdir")
             new_workspace_name="$workspace_num:$workspace_num: $projectdir_basename"
             i3-msg "rename workspace to \"$new_workspace_name\""
-            i3-msg "append_layout \"${layout_path}/${editor}_${terminal}.json\""
             run_editor "$projectdir"
-            run_terminal "$projectdir"
         fi
     done
 fi
