@@ -12,7 +12,11 @@
 
 set -eo pipefail
 
-cur_vol=$(quodlibet --status | awk '{ printf "%.f", $3 ^ (1/3) * 100 }')
+status_file="$(mktemp)"
+printf "\0status\0$status_file\0" > ~/.quodlibet/control
+cur_vol=$(awk '{ printf "%.f", $3 ^ (1/3) * 100 }' < "$status_file")
+rm "$status_file"
+
 change="$1"
 
 if [[ -n "$change" ]]; then
@@ -21,7 +25,8 @@ if [[ -n "$change" ]]; then
     else
         vol="$1"
     fi
-    quodlibet --volume="$(awk '{ print ($1 / 100) ^ 3 * 100 }' <<< $vol)"
+    vol_scaled=$(awk '{ print ($1 / 100) ^ 3 * 100 }' <<< $vol)
+    printf "\0volume $vol_scaled\0/dev/null\0" > ~/.quodlibet/control
 else
     vol="$cur_vol"
 fi
