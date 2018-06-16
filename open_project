@@ -23,20 +23,19 @@ cd "$initial_search_dir"
 # select the first directory so arrow keys can be used right away
 # (assuming there are only subdirectories, no files)
 first_project_dir="$initial_search_dir/$(ls $initial_search_dir | sort -n | head -1)"
-projectdir=$(zenity --file-selection --directory --filename="$first_project_dir")
+project_dir=$(zenity --file-selection --directory --filename="$first_project_dir")
 
-if [[ "$projectdir" ]]; then
+if [[ "$project_dir" ]]; then
     workspaces=$(i3-msg -t get_workspaces)
     workspace_count=$(echo $workspaces | jshon -l)
-    let workspace_count-=1
 
-    for i in $(seq 0 $workspace_count); do
+    for i in $(seq 0 $(($workspace_count - 1))); do
         if [[ $(jshon -e $i -e focused <<< "$workspaces") = "true" ]]; then
             workspace_num=$(jshon -e $i -e num <<< "$workspaces")
-            projectdir_basename=$(basename "$projectdir")
-            new_workspace_name="$workspace_num:$workspace_num: $projectdir_basename"
+            project_dir_basename=$(basename "$project_dir")
+            new_workspace_name="$workspace_num:$workspace_num: $project_dir_basename"
             i3-msg "rename workspace to \"$new_workspace_name\""
-            run_editor "$projectdir"
+            run_editor "$project_dir"
         fi
     done
 fi
