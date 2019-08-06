@@ -28,6 +28,7 @@ if [[ "$project_dir" ]]; then
     project_dir_basename=$(basename "$project_dir")
     new_workspace_name="$workspace_number:$workspace_number: $project_dir_basename"
 
-    swaymsg "rename workspace to \"$new_workspace_name\""
+    # Ignore errors from swaymsg here (e.g. when a workspace of that name already exists)
+    swaymsg "rename workspace to \"$new_workspace_name\"" || true
     run_editor "$project_dir"
 fi
