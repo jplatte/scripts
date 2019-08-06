@@ -1,0 +1,30 @@
+#!/bin/bash
+set -e
+
+# Dependencies
+# ============
+#
+# * jq
+# * zenity
+
+# Static settings
+# ===============
+initial_search_dir="$HOME/Projekte"
+
+# "Main"
+# ======
+
+# select the first directory so arrow keys can be used right away
+# (assuming there are only subdirectories, no files)
+first_project_dir="$initial_search_dir"/$(ls -1 "$initial_search_dir" | sort -n | head -1)
+file=$(zenity --file-selection --file-filter='*.code-workspace' --filename="$first_project_dir")
+
+if [[ "$file" ]]; then
+    workspace_number=$(swaymsg -t get_workspaces | jq '.[] | select(.focused == true).num')
+    file_basename=$(basename "$file" '.code-workspace')
+    new_workspace_name="$workspace_number:$workspace_number: $file_basename"
+
+    # Ignore errors from swaymsg here (e.g. when a workspace of that name already exists)
+    swaymsg "rename workspace to \"$new_workspace_name\"" || true
+    code "$file"
+fi
