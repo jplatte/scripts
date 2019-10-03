@@ -20,7 +20,7 @@ run_editor() {
 
 # select the first directory so arrow keys can be used right away
 # (assuming there are only subdirectories, no files)
-first_project_dir="$initial_search_dir"/$(ls -1 "$initial_search_dir" | sort -n | head -1)
+first_project_dir="$initial_search_dir"/$(ls -1 "$initial_search_dir" | head -1)
 project_dir=$(zenity --file-selection --directory --filename="$first_project_dir")
 
 if [[ "$project_dir" ]]; then
