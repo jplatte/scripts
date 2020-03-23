@@ -1,7 +1,0 @@
-#!/bin/bash
-
-command="$1"
-output_file="${2:-/dev/null}"
-
-[[ -p ~/.config/quodlibet/control ]] && \
-    printf "\0$command\0$output_file\0" > ~/.config/quodlibet/control
