@@ -13,7 +13,7 @@ initial_search_dir="$HOME/Projekte"
 
 # "Main"
 # ======
-editor=code
+editor=codium
 run_editor() {
     $editor "$1"
 }
