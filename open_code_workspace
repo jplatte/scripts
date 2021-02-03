@@ -9,7 +9,7 @@ set -e
 
 # Static settings
 # ===============
-initial_search_dir="$HOME/Projekte"
+initial_search_dir="$HOME/code"
 
 # "Main"
 # ======
