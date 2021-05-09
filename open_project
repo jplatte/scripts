@@ -13,9 +13,8 @@ initial_search_dir="$HOME/code"
 
 # "Main"
 # ======
-editor=codium
 run_editor() {
-    $editor "$1"
+    codium --enable-gpu-rasterization --enable-features=UseOzonePlatform --ozone-platform=wayland "$1"
 }
 
 # select the first directory so arrow keys can be used right away

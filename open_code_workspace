@@ -26,5 +26,5 @@ if [[ "$file" ]]; then
 
     # Ignore errors from swaymsg here (e.g. when a workspace of that name already exists)
     swaymsg "rename workspace to \"$new_workspace_name\"" || true
-    codium "$file"
+    codium --enable-gpu-rasterization --enable-features=UseOzonePlatform --ozone-platform=wayland "$file"
 fi
