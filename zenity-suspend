@@ -3,9 +3,6 @@ zenity --question --title="Bereitschaftsmodus" --text="Wollen sie den Computer i
 response=$?
 
 if [ "$response" = "0" ]; then
-    # wait for re-render after zenity closed
-    sleep .1s
     systemctl suspend
-    $(dirname $0)/lock
 fi
 exit 0
