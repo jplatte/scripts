@@ -16,5 +16,5 @@ done
 # Pixelize each output in parallel
 printf '%s\n' "${images[@]}" | xargs -P 0 -I{} convert -scale 5% -scale 2000% {} {}
 
-swaylock ${swaylock_args[@]}
+swaylock ${swaylock_args[@]} "$@"
 rm ${images[@]}
