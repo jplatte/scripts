@@ -14,7 +14,7 @@ initial_search_dir="$HOME/code"
 # "Main"
 # ======
 run_editor() {
-    code --enable-gpu-rasterization --ozone-platform=wayland "$1"
+    code "$1"
 }
 
 # select the first directory so arrow keys can be used right away
