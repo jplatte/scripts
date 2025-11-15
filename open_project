@@ -23,11 +23,16 @@ first_project_dir="$initial_search_dir"/$(ls -1 "$initial_search_dir" | head -1)
 project_dir=$(zenity --file-selection --directory --title='Select project' --filename="$first_project_dir")
 
 if [[ "$project_dir" ]]; then
-    workspace_number=$(swaymsg -t get_workspaces | jq '.[] | select(.focused == true).num')
     project_dir_basename=$(basename "$project_dir")
-    new_workspace_name="$workspace_number:$workspace_number: $project_dir_basename"
+    workspace_number=$(swaymsg -t get_workspaces | jq '.[] | select(.focused == true).num')
+    # hacky check: are we on sway
+    if [[ -n "$workspace_number" ]]; then
+        new_workspace_name="$workspace_number:$workspace_number: $project_dir_basename"
+        # Ignore errors from swaymsg here (e.g. when a workspace of that name already exists)
+        swaymsg "rename workspace to \"$new_workspace_name\"" || true
+    else
+        niri msg action set-workspace-name "$project_dir_basename"
+    fi
 
-    # Ignore errors from swaymsg here (e.g. when a workspace of that name already exists)
-    swaymsg "rename workspace to \"$new_workspace_name\"" || true
     run_editor "$project_dir"
 fi
